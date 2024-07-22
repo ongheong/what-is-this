@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="simpleRequest()">simpleRequest</button>
+    <button onclick="preflightedRequest()">preflightedRequest</button>
+</body>
+<script>
+    function simpleRequest(){
+        const xhr = new XMLHttpRequest();
+        const url = 'https://bar.other/resources/public-data/';
+
+        xhr.open('GET', url);
+        xhr.onreadystatechange = someHandler;
+        xhr.send();
+    }
+
+    function preflightedRequest() {
+        const xhr = new XMLHttpRequest();
+        const url = 'https://bar.other/resources/post-here/';
+
+        xhr.open('POST', url);
+
+        xhr.setRequestHeader('X-PINGOTHER', 'pingpong'); // 사용자 
+        xhr.setRequestHeader('Content-Type', 'application/xml'); //
+        
+        xhr.onreadystatechange = function() { 
+            if (xhr.readyState === 4) { //
+                if (xhr.status === 200) {
+                    console.log('Response:', xhr.responseText);
+                } else {
+                    console.error('Error:', xhr.statusText);
+                }
+            }
+        };
+
+        xhr.send('<person><name>Arun</name></person>');
+    }
+
+</script>
+</html>
