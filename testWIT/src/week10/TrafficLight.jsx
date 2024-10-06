@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function TrafficLight() {
   const [walk, setWalk] = useState(true);
-
+  //렌더링의 이벤트 핸들러 내에서는, state 값을 고정으로 유지함
   function handleClick() {
     //walk ? alert("다음은 정지입니다") : alert("다음은 걷기입니다");
     setWalk(!walk);
